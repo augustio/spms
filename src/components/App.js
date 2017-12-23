@@ -9,17 +9,19 @@ import Dashboard from './Dashboard';
 class App extends Component{
   render(){
     return (
-      <BrowserRouter>
-        <div>
-          <Header />
-          <Route exact path="/"
-            component={Landing}
-          />
-          <Route exact path="/dashboard"
-            component={Dashboard}
-          />
-        </div>
-      </BrowserRouter>
+      <div className="container">
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Route exact path="/"
+              component={Landing}
+            />
+            <Route exact path="/dashboard"
+              component={Dashboard}
+            />
+          </div>
+        </BrowserRouter>
+      </div>
     );
   }
 };
