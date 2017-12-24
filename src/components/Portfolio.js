@@ -1,34 +1,39 @@
 import React, { Component } from 'react';
+import {
+  Panel,
+  Col,
+  Button,
+  ButtonToolbar,
+  ButtonGroup
+} from 'react-bootstrap';
 
 class Portfolio extends Component{
 
   render(){
     return (
-      <div className="col s6">
-        <div className="card blue-grey darken-1">
-          <div className="card-content white-text">
-            <span className="card-title">{this.props.name}</span>
-            <span>
-              <a
-                className="btn-floating btn waves-effect waves-light">
-                <i className="material-icons">attach money</i>
-              </a>
-            </span>
-            <span>
-              <a
-                className="btn-floating btn waves-effect waves-light">
-                <i className="material-icons">euro symbol</i>
-              </a>
-            </span>
-            <span>
-              <a
-                className="btn-floating btn waves-effect waves-light">
-                <i className="material-icons">cancel</i>
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
+      <Col lg={6} sm={6} >
+        <Panel header={this.props.name} bsStyle="info">
+          <ButtonToolbar className="pull-right">
+            <ButtonGroup bsSize="xsmall">
+              <Button bsStyle="primary">
+                Show in
+                &nbsp;
+                <i className="fa fa-usd"></i>
+              </Button>
+              <Button bsStyle="primary">
+                Show in
+                &nbsp;
+                <i className="fa fa-eur"></i>
+              </Button>
+              <Button bsStyle="danger">
+                Delete
+                &nbsp;
+                <i className="fa fa-trash-o"></i>
+              </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
+        </Panel>
+      </Col>
     );
   }
 }

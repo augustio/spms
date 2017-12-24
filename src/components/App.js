@@ -9,7 +9,7 @@ import Dashboard from './Dashboard';
 class App extends Component{
   render(){
     return (
-      <div className="container">
+      <div>
         <BrowserRouter>
           <div>
             <Header />

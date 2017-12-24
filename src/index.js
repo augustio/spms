@@ -1,4 +1,4 @@
-import 'materialize-css/dist/css/materialize.min.css';
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';

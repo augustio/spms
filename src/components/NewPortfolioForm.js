@@ -1,53 +1,117 @@
 import React, { Component } from 'react';
+import {
+  Modal,
+  Button,
+  FormGroup,
+  FormControl,
+  HelpBlock
+} from 'react-bootstrap';
 
 class NewPortfolioForm extends Component{
+  state = {
+    value: "",
+    showForm: false,
+    error: ""
+  };
 
-  state = {name: "", error: ""};
+  errorMsg = {
+    empty: "You must provide a name",
+    duplicate: "No duplicate names"
+  };
 
-  handleInputChange = event => {
-    event.preventDefault();
-    this.setState({name: event.target.value});
+  close = () => this.setState({
+    showForm: false,
+    value: "",
+    error: ""
+  });
+
+  open = () => this.setState({showForm: true});
+
+  getValidationState = () => {
+    if(this.state.error){
+      return 'error';
+    }
+  };
+
+  handleChange = e =>{
+    let error = "";
+    let value = e.target.value.trim();
+    if(this.props.portfolios.find(p => p.name === value)){
+      error = this.errorMsg.duplicate;
+    }
+    if(!value){
+      error = this.errorMsg.empty;
+    }
+    this.setState({value, error});
   }
 
+  IsValid(){
+    if(!this.state.value){
+      this.setState({error: this.errorMsg.empty});
+      return false;
+    }
+    if(this.state.error){
+      return false;
+    }
+    return true;
+  };
+
   handleSubmit = () => {
-    if(this.state.name){
-      let name = this.state.name.trim()
-      let exists = this.props.portfolios.find(p => p.name === name);
-      if(exists){
-        this.setState({error: "No duplicate portfolio names!"});
-      }else{
-        this.props.onSubmit(this.state.name);
-        this.props.close();
-      }
-    }else{
-      this.setState({error: "You must provide portfolio name!"});
+    if(this.IsValid()){
+      this.props.onSubmit(this.state.value);
+      this.close();
     }
   }
 
   render(){
-    return (
-      <form className="col s9">
-        <div className="row">
-          <div className="col s6">
-            <input placeholder="Portfolio Name" id="name" type="text" className="validate" value={this.state.name} onChange={this.handleInputChange}/>
-            <label style={{color: "red"}}>{this.state.error}</label>
-          </div>
-          <div className="col s2">
-            <a
-              className="btn-floating btn waves-effect waves-light teal darken-2"
-              onClick={this.handleSubmit}>
-              <i className="material-icons">add</i>
-            </a>
-          </div>
-          <div className="col s2">
-            <a
-              className="btn-floating btn waves-effect waves-light red darken-2"
-              onClick={() => this.props.close()}>
-              <i className="material-icons">cancel</i>
-            </a>
-          </div>
-        </div>
-      </form>
+    return(
+      <div>
+        <Button
+          bsSize="xsmall"
+          bsStyle="primary"
+          onClick={this.open}
+        >
+          Add New Portfolio
+          &nbsp;
+          <i className="fa fa-plus"></i>
+        </Button>
+        <Modal
+          show={this.state.showForm}
+          onHide={this.close}
+          bsSize="small"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>New Portfolio Form</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <FormGroup
+                controlId="pForm"
+                validationState={this.getValidationState()}
+              >
+                <FormControl
+                  type="text"
+                  value={this.state.value}
+                  placeholder="Enter Portfolio Name"
+                  onChange={this.handleChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>{this.state.error}</HelpBlock>
+              </FormGroup>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              bsSize="small"
+              bsStyle="success"
+              onClick={() => this.handleSubmit()}>
+              Submit
+              &nbsp;
+              <i className="fa fa-check-square-o"></i>
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     );
   }
 };
