@@ -30,3 +30,14 @@ body{
 .panel-body{
   padding: 0;
 }
+.table_scroll{
+  max-height: 100px;
+  overflow-y: scroll;
+}
+.stock-table-container{
+  margin-top: 30px;
+}
+.portfolio-total-label{
+  margin-bottom: 10px;
+  text-align: center;
+}

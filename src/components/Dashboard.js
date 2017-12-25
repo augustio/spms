@@ -11,7 +11,7 @@ class Dashboard extends Component{
 
   renderPortfolios(){
     return this.props.portfolios.map(p => (
-      <Portfolio key={p.id} name={p.name.toUpperCase()}></Portfolio>
+      <Portfolio key={p.id} name={p.name}></Portfolio>
     ));
   }
 

@@ -2,7 +2,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import persistState from 'redux-localstorage';
 import logger from 'redux-logger';
 
@@ -17,6 +17,11 @@ const store = createStore(
     persistState()
   )
 );
+
+// const store = createStore(
+//   reducers,
+//   {}
+// );
 
 ReactDom.render(
   <Provider store={store}><App /></Provider>, document.querySelector('#root')

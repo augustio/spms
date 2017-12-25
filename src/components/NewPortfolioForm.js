@@ -8,6 +8,7 @@ import {
 } from 'react-bootstrap';
 
 class NewPortfolioForm extends Component{
+
   state = {
     value: "",
     showForm: false,
