@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import * as actions from '../actions';
 import NewPortfolioForm from './NewPortfolioForm';
 import Portfolio from './Portfolio';
@@ -11,7 +12,7 @@ class Dashboard extends Component{
 
   renderPortfolios(){
     return this.props.portfolios.map(p => (
-      <Portfolio key={p.id} name={p.name}></Portfolio>
+      <Portfolio key={p.id} portfolio={p}></Portfolio>
     ));
   }
 
@@ -33,7 +34,9 @@ class Dashboard extends Component{
 };
 
 function mapStateToProps({ portfolios }){
-  return { portfolios };
+  return {
+    portfolios: _.sortBy(_.values(portfolios), ['created'])
+  };
 }
 
 export default connect(mapStateToProps, actions)(Dashboard);

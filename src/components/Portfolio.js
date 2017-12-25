@@ -38,7 +38,9 @@ class Portfolio extends Component{
                 &nbsp;
                 <i className="fa fa-eur"></i>
               </Button>
-              <Button bsStyle="danger">
+              <Button
+                bsStyle="danger"
+                onClick={() => this.props.deletePortfolio(this.props.portfolio.id)}>
                 Delete
                 &nbsp;
                 <i className="fa fa-trash-o"></i>
@@ -88,10 +90,8 @@ class Portfolio extends Component{
 }
 
 function mapStateToProps(state, ownprops){
-  let portfolio = state.portfolios.find(p => p.name = ownprops.name);
-  let _stocks = {...state.stocks[portfolio.id]};
+  let _stocks = {...state.stocks[ownprops.portfolio.id]};
   return {
-    portfolio,
     stocks: _.sortBy(_.values(_stocks), ['created'])
   };
 }

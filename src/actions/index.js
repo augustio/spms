@@ -6,11 +6,11 @@ import {
   DELETE_STOCK
 } from './types';
 
-export const addPortfolio = portfolioName =>
-  ({type: ADD_PORTFOLIO, payload: portfolioName});
+export const addPortfolio = name =>
+  ({type: ADD_PORTFOLIO, name});
 
-export const deletePortfolio = portfolioName =>
-  ({type: DELETE_PORTFOLIO, payload: portfolioName});
+export const deletePortfolio = id =>
+  ({type: DELETE_PORTFOLIO, id});
 
 export const addStock = (symbol, pId) =>
   ({type: ADD_STOCK, symbol, pId});

@@ -1,6 +1,5 @@
 import uuid4 from 'uuid/v4';
 import u from 'updeep';
-import _ from 'lodash';
 import {
   ADD_STOCK,
   TOGGLE_SELECT_STOCK,
