@@ -1,8 +1,10 @@
 import uuid4 from 'uuid/v4';
 import u from 'updeep';
+import moment from 'moment';
 import {
   ADD_PORTFOLIO,
-  DELETE_PORTFOLIO
+  DELETE_PORTFOLIO,
+  SET_CUR_RATE
 } from '../actions/types';
 
 export default function(state = {}, action){
@@ -11,10 +13,19 @@ export default function(state = {}, action){
       let id = uuid4();
       return {
         ...state,
-        [id]: {name: action.name, id, created: Date.now()}
+        [id]: {
+          name: action.name,
+          id,
+          created: moment.now(),
+          currencyRate: 1,
+          currency: 'usd'
+        }
       }
     case DELETE_PORTFOLIO:
       return u(u.omit([action.id]), state);
+    case SET_CUR_RATE:
+      return u(
+        {[action.pId]: {currencyRate: action.rate, currency: action.toCurrency}}, state);
     default:
       return state;
   }

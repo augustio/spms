@@ -11,6 +11,7 @@ import {
   Label
 } from 'react-bootstrap';
 import StockTable from './StockTable';
+import NewStockForm from './NewStockForm';
 
 class Portfolio extends Component{
 
@@ -22,18 +23,28 @@ class Portfolio extends Component{
     });
   }
 
+  changeCurrency(from, to){
+    this.props.setCurrencyRate(from, to, this.props.portfolio.id);
+  }
+
   render(){
     return (
-      <Col lg={6} sm={6} >
+      <Col lg={6} md={6} sm={6} >
         <Panel header={this.props.portfolio.name} bsStyle="info">
           <ButtonToolbar className="pull-right">
             <ButtonGroup bsSize="xsmall">
-              <Button bsStyle="primary">
+              <Button
+                bsStyle="primary"
+                onClick={() => this.changeCurrency('eur', 'usd')}
+              >
                 Show in
                 &nbsp;
                 <i className="fa fa-usd"></i>
               </Button>
-              <Button bsStyle="primary">
+              <Button
+                bsStyle="primary"
+                onClick={() => this.changeCurrency('usd', 'eur')}
+              >
                 Show in
                 &nbsp;
                 <i className="fa fa-eur"></i>
@@ -52,7 +63,8 @@ class Portfolio extends Component{
               stocks={
                 this.props.stocks || []
               }
-              onSelect={this.props.toggleSelectStock}
+              rate={this.props.portfolio.currencyRate}
+              currency={this.props.portfolio.currency}
             />
           </div>
           <div className="portfolio-total-label">
@@ -60,15 +72,12 @@ class Portfolio extends Component{
               Total value of {this.props.portfolio.name}: 0.00
             </Label>
           </div>
+          <NewStockForm
+            pId={this.props.portfolio.id}
+            onSubmit={this.props.addStock}
+          />
           <ButtonToolbar className="pull-right">
             <ButtonGroup bsSize="xsmall">
-              <Button
-                bsStyle="primary"
-                onClick={() => this.props.addStock("UAC", this.props.portfolio.id)}>
-                Add Stock
-                &nbsp;
-                <i className="fa fa-plus"></i>
-              </Button>
               <Button bsStyle="info">
                 Perf graph
                 &nbsp;

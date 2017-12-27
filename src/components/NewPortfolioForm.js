@@ -12,6 +12,7 @@ class NewPortfolioForm extends Component{
   state = {
     value: "",
     showForm: false,
+    createNewPortfolio: true,
     error: ""
   };
 
@@ -22,6 +23,7 @@ class NewPortfolioForm extends Component{
 
   close = () => this.setState({
     showForm: false,
+    createPortfolio: true,
     value: "",
     error: ""
   });
@@ -64,18 +66,40 @@ class NewPortfolioForm extends Component{
     }
   }
 
+  onAddPortfolioBtnClick = () =>{
+    //Max portfolios = 10
+    if(this.props.portfolios.length === 10){
+      this.setState({createNewPortfolio: false});
+      this.timeoutId = setTimeout(
+        () => this.setState({createNewPortfolio: true}),
+        2000
+      );
+    }else{
+      this.open();
+    }
+  }
+
+  componentWillUnmount(){
+    clearTimeout(this.timeoutId);
+  }
+
   render(){
     return(
       <div>
         <Button
           bsSize="xsmall"
           bsStyle="primary"
-          onClick={this.open}
+          onClick={this.onAddPortfolioBtnClick}
         >
           Add New Portfolio
           &nbsp;
           <i className="fa fa-plus"></i>
         </Button>
+        {
+          this.state.createNewPortfolio ?
+          "" :
+          <span style={{color:"red"}}>Max number of portfolios is 10</span>
+        }
         <Modal
           show={this.state.showForm}
           onHide={this.close}

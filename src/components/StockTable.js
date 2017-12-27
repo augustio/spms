@@ -1,39 +1,28 @@
 import React, { Component } from 'react';
-import {
-  Table,
-  Checkbox
-} from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
+
+import Stock from './Stock';
 
 class StockTable extends Component{
-  renderStocks = () =>{
-    return this.props.stocks.map(s => {
-      return (
-        <tr key={s.id}>
-          <td>{s.symbol}</td>
-          <td>{s.unit_value}</td>
-          <td>{s.quantity}</td>
-          <td>{s.unit_value * s.quantity}</td>
-          <td>
-            <Checkbox
-              checked={s.selected}
-              onChange={() => {
-                this.props.onSelect(s.id, s.pId);
-              }} />
-          </td>
-        </tr>
-      );
-    });
-  };
+
+  renderStocks = () => this.props.stocks.map(
+    s => <Stock
+      key={s.id}
+      stock={s}
+      currency={this.props.currency}
+      rate={this.props.rate}
+    />
+  );
 
   render(){
     return(
-      <Table striped bordered condensed hover>
+      <Table responsive striped bordered condensed hover>
         <thead>
           <tr>
             <th>Symbol</th>
             <th>Unit Value</th>
             <th>Quantity</th>
-            <th>total Value</th>
+            <th>Total Value</th>
             <th>Select</th>
           </tr>
         </thead>

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore, compose, applyMiddleware } from 'redux';
 import persistState from 'redux-localstorage';
 import logger from 'redux-logger';
+import reduxThunk from 'redux-thunk';
 
 import App from './components/App';
 import reducers from './reducers';
@@ -13,15 +14,10 @@ const store = createStore(
   reducers,
   {},
   compose(
-    applyMiddleware(logger),
+    applyMiddleware(reduxThunk, logger),
     persistState()
   )
 );
-
-// const store = createStore(
-//   reducers,
-//   {}
-// );
 
 ReactDom.render(
   <Provider store={store}><App /></Provider>, document.querySelector('#root')
