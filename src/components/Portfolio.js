@@ -23,6 +23,12 @@ class Portfolio extends Component{
     });
   }
 
+  calculateTotalStockValue(){
+    let tValue = this.props.stocks.reduce(
+      (t, s) => { return t += s.unitValue * s.quantity}, 0);
+    return (tValue * this.props.portfolio.currencyRate).toFixed(2);
+  }
+
   changeCurrency(from, to){
     this.props.setCurrencyRate(from, to, this.props.portfolio.id);
   }
@@ -71,7 +77,13 @@ class Portfolio extends Component{
           </div>
           <div className="portfolio-total-label">
             <Label>
-              Total value of {this.props.portfolio.name}: 0.00
+              Total value of {this.props.portfolio.name}: {this.calculateTotalStockValue()}
+              &nbsp;
+              {
+                this.props.portfolio.currency === 'usd' ?
+                  <i className="fa fa-usd"></i> :
+                  <i className="fa fa-eur"></i>
+              }
             </Label>
           </div>
           <NewStockForm
