@@ -11,7 +11,7 @@ class Stock extends Component{
         let {stock, updateStockValue} = this.props;
         updateStockValue(stock.pId, stock.id, stock.symbol);
       },
-      3600000
+      60000
     );
   }
 
