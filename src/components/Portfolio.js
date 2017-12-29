@@ -65,6 +65,8 @@ class Portfolio extends Component{
               }
               rate={this.props.portfolio.currencyRate}
               currency={this.props.portfolio.currency}
+              updateStockValue={this.props.updateStockValue}
+              toggleSelectStock={this.props.toggleSelectStock}
             />
           </div>
           <div className="portfolio-total-label">

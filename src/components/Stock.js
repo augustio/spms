@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../actions';
 import { Checkbox } from 'react-bootstrap';
 
 class Stock extends Component{
@@ -52,4 +50,4 @@ class Stock extends Component{
   }
 }
 
-export default connect(null, actions)(Stock);
+export default Stock;

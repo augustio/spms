@@ -11,6 +11,8 @@ class StockTable extends Component{
       stock={s}
       currency={this.props.currency}
       rate={this.props.rate}
+      updateStockValue={this.props.updateStockValue}
+      toggleSelectStock={this.props.toggleSelectStock}
     />
   );
 
