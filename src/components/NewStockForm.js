@@ -42,6 +42,7 @@ class NewStockForm extends Component{
     return(
       <span>
         <Button
+          className="pull-right"
           bsSize="xsmall"
           bsStyle="primary"
           onClick={this.open}

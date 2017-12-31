@@ -4,7 +4,8 @@ import moment from 'moment';
 import {
   ADD_PORTFOLIO,
   DELETE_PORTFOLIO,
-  SET_CUR_RATE
+  SET_CUR_RATE,
+  GET_PERF_DATA
 } from '../actions/types';
 
 export default function(state = {}, action){
@@ -26,6 +27,11 @@ export default function(state = {}, action){
     case SET_CUR_RATE:
       return u(
         {[action.pId]: {currencyRate: action.rate, currency: action.toCurrency}}, state);
+    case GET_PERF_DATA:
+      return u(
+        {[action.pId]: {[action.symbol]: action.data}},
+        state
+      );
     default:
       return state;
   }

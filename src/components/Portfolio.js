@@ -12,15 +12,28 @@ import {
 } from 'react-bootstrap';
 import StockTable from './StockTable';
 import NewStockForm from './NewStockForm';
+import PerformanceGraph from './PerformanceGraph';
 
 class Portfolio extends Component{
 
   deleteStock(){
+    let symbols = this.props.stocks.length;
     this.props.stocks.forEach(s =>{
       if(s.selected){
-        this.props.deleteStock(s.id, s.pId)
+        if(symbols === 1){
+          this.props.deleteAllPortfolioStock(s.pId);
+        }else{
+          this.props.deleteStock(s.id, s.pId);
+        }
+        symbols -= 1;
       }
     });
+  }
+
+  deletePortfolio(){
+    let pId = this.props.portfolio.id;
+    this.props.deleteAllPortfolioStock(pId);
+    this.props.deletePortfolio(pId);
   }
 
   calculateTotalStockValue(){
@@ -57,7 +70,7 @@ class Portfolio extends Component{
               </Button>
               <Button
                 bsStyle="danger"
-                onClick={() => this.props.deletePortfolio(this.props.portfolio.id)}>
+                onClick={() => this.deletePortfolio()}>
                 Delete
                 &nbsp;
                 <i className="fa fa-trash-o"></i>
@@ -66,9 +79,7 @@ class Portfolio extends Component{
           </ButtonToolbar>
           <div className="stock-table-container">
             <StockTable
-              stocks={
-                this.props.stocks || []
-              }
+              stocks={this.props.stocks}
               rate={this.props.portfolio.currencyRate}
               currency={this.props.portfolio.currency}
               updateStockValue={this.props.updateStockValue}
@@ -90,22 +101,21 @@ class Portfolio extends Component{
             pId={this.props.portfolio.id}
             onSubmit={this.props.addStock}
           />
-          <ButtonToolbar className="pull-right">
-            <ButtonGroup bsSize="xsmall">
-              <Button bsStyle="info">
-                Perf graph
-                &nbsp;
-                <i className="fa fa-line-chart"></i>
-              </Button>
-              <Button
-                bsStyle="danger"
-                onClick={() => this.deleteStock()}>
-                Remove Stock
-                &nbsp;
-                <i className="fa fa-trash-o"></i>
-              </Button>
-            </ButtonGroup>
-          </ButtonToolbar>
+          <PerformanceGraph
+            title={this.props.portfolio.name}
+            stocks={this.props.stocks}
+            getPerfData={this.props.getPerformanceData}
+            portfolio={this.props.portfolio}
+          />
+          <Button
+            className="pull-right"
+            bsSize="xsmall"
+            bsStyle="danger"
+            onClick={() => this.deleteStock()}>
+            Remove Stock
+            &nbsp;
+            <i className="fa fa-trash-o"></i>
+          </Button>
         </Panel>
       </Col>
     );

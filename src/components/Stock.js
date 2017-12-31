@@ -13,6 +13,10 @@ class Stock extends Component{
     );
   }
 
+  componentWillUnmount(){
+    clearInterval(this.intervalId);
+  }
+
   setCurrency(){
     switch(this.props.currency){
       case 'eur':

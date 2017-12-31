@@ -7,8 +7,10 @@ import {
   ADD_STOCK,
   TOGGLE_SELECT_STOCK,
   DELETE_STOCK,
+  DELETE_ALL_PORTFOLIO_STOCK,
   UPDATE_STOCK_VALUE,
-  SET_CUR_RATE
+  SET_CUR_RATE,
+  GET_PERF_DATA
 } from './types';
 import * as apiCfg from '../config/stock';
 
@@ -65,8 +67,22 @@ export const setCurrencyRate = (fromCurrency, toCurrency, pId) => async dispatch
   dispatch({type: SET_CUR_RATE, rate: Number.parseFloat(rate), pId, toCurrency});
 };
 
+export const getPerformanceData = (symbol, pId) =>
+  async dispatch => {
+    const url = `${apiCfg.base_url}query?function=TIME_SERIES_DAILY&symbol=${symbol}&apikey=${apiCfg.key}`;
+    const res = await axios.get(url);
+    let data = _.mapKeys(_.get(res, ['data', 'Time Series (Daily)']), (value, key) => moment(key).unix());
+    data = _.keys(data).map(k => {
+      return {[k]: _.get(data[k], '4. close')}
+    })
+    dispatch({type: GET_PERF_DATA, symbol, pId, data});
+  }
+
 export const toggleSelectStock = (sId, pId) =>
   ({type: TOGGLE_SELECT_STOCK, sId, pId});
 
 export const deleteStock = (sId, pId) =>
   ({type: DELETE_STOCK, sId, pId});
+
+export const deleteAllPortfolioStock = (pId) =>
+({type: DELETE_ALL_PORTFOLIO_STOCK, pId});

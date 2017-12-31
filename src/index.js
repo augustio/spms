@@ -1,4 +1,5 @@
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import 'react-widgets/dist/css/react-widgets.css';
 import React from 'react';
 import ReactDom from 'react-dom';
 import { Provider } from 'react-redux';
