@@ -45,7 +45,13 @@ class NewStockForm extends Component{
           className="pull-right"
           bsSize="xsmall"
           bsStyle="primary"
-          onClick={this.open}
+          onClick={
+            () => {
+              if(this.props.numStock <= 40){
+                this.open();
+              }
+            }
+          }
         >
           Add New Stock
           &nbsp;

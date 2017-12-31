@@ -99,6 +99,7 @@ class Portfolio extends Component{
           </div>
           <NewStockForm
             pId={this.props.portfolio.id}
+            numStock={Object.keys(this.props.stocks).length}
             onSubmit={this.props.addStock}
           />
           <PerformanceGraph
