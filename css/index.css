@@ -1,0 +1,43 @@
+body{
+  margin: 5px 20px;
+}
+
+/*Header style*/
+.navbar, .navbar-default{
+  background-color:steelblue;
+  border: none;
+  background-image: none;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.navbar .navbar-nav > li > a,
+.navbar .navbar-header > a,
+.navbar .navbar-header > a:visited{
+   color: white;
+}
+
+.navbar .navbar-nav > li > a:hover,
+.navbar .navbar-header > a:hover{
+   color: lightgray;
+}
+
+/*Dashboard style*/
+.dashboard{
+  margin: 10px 0;
+}
+
+.panel-body{
+  padding: 0;
+}
+.table_scroll{
+  max-height: 100px;
+  overflow-y: scroll;
+}
+.stock-table-container{
+  margin-top: 30px;
+}
+.portfolio-total-label{
+  margin-bottom: 10px;
+  text-align: center;
+}
