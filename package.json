@@ -2,9 +2,11 @@
   "name": "spms",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://augustio.github.io/spms",
   "dependencies": {
     "axios": "^0.17.1",
     "font-awesome": "^4.7.0",
+    "gh-pages": "^1.1.0",
     "lodash": "^4.17.4",
     "materialize-css": "^0.100.2",
     "moment": "^2.20.1",
@@ -29,6 +31,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
