@@ -8,9 +8,10 @@ import Dashboard from './Dashboard';
 
 class App extends Component{
   render(){
+    const supportsHistory = 'pushState' in window.history;
     return (
       <div>
-        <BrowserRouter>
+        <BrowserRouter forceRefresh={!supportsHistory}>
           <div>
             <Header />
             <Route exact path="/"
